@@ -1,40 +1,31 @@
-# Configuring-Active-Directory-on-VirtualBox
+<h1 align="center">Configuring Active Directory on VirtualBox</h1>
+<p align="center"><img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/></p>
 
-<p align="center">
-<img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
-</p>
+This tutorial outlines the implementation of Microsoft Active Directory within Oracle VM VirtualBox.
 
-<h1>On-premises Active Directory Deployed in the Cloud (Azure)</h1>
-This tutorial outlines the implementation of on-premises Active Directory within Azure Virtual Machines.<br />
+<h3>Environments and Technologies Used</h3>
 
-<h2>Video Demonstration</h2>
-
-- ### https://www.youtube.com/watch?v=RWTgd160OU0
-
-<h2>Environments and Technologies Used</h2>
-
-- Microsoft Azure (Virtual Machines/Compute)
-- Remote Desktop
 - Active Directory Domain Services
+- Oracle VM VirtualBox
+- Remote Desktop
 - PowerShell
 
-<h2>Operating Systems Used </h2>
+<h3>Operating Systems Used</h3>
 
-- Windows Server 2022
-- Windows 10 (21H2)
+- Windows Server 2019
+- Windows 10 Pro
 
 
 <h2>Deployment and Configuration Steps</h2>
 
-<p>
-</p>
-<p>
-In this lab we will create two VMs in the same VNET. One will be a Domain Controller, the other will be a Client machine. We will change the DC to a static IP because its offering Active Directory services to the client machine. Client machine will be joined to the domain. We will control the DNS settings on the client machine, the client machine will use the DC as its DNS server. 
-</p>
-<br />
 
 <p>
-<img src="https://i.imgur.com/d22FHIm.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+In this lab, we will create two virtual machines on VirtualBox. One will be the Domain Controller (DC), while the other will be a Client machine. The Client will connect to the internet through the DC's internal network and out the external connection. 
+</p>
+
+
+<p>
+<img src="https://i.imgur.com/gY8ouR6.png" height="80%" width="80%" alt="AD lab diagram"/>
 </p>
 <p>
 DC-1 has to have a static Private IP Address. Client one will connect to DC-1 to ensure connectivity we will try to ping DC-1 from Client-1. At first the ping will not work correctly. We have to enable ICMPv4 on the firewall on DC-1. Now we can ping DC-1 successfully from Client-1
