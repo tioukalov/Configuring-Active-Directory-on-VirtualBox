@@ -5,7 +5,7 @@ This tutorial outlines the implementation of Microsoft Active Directory within O
 
 <h3>Environments and Technologies Used</h3>
 
-- Active Directory Domain Services
+- Active Directory
 - Oracle VM VirtualBox
 - Remote Desktop
 - PowerShell
