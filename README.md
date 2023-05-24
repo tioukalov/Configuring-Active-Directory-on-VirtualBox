@@ -51,7 +51,7 @@ In this lab, we will create two virtual machines on VirtualBox. One will be the 
 <img src="https://i.imgur.com/NjFl209.png" height="48%" width="48%" alt="NAT setup"/></p>
 
 <p>The last role we will add to this DC is the Dynamic Host Configuration Protocol (DHCP) Server. We will create a new scope using the internal network, ranging from 172.16.0.100 to 172.16.0.200. Furthermore, we will set the internal network's default gateway/router to the DC's IP address: 172.16.0.1</p>
-<p><img src="https://i.imgur.com/WZ8hSFG.png" height="39%" width="39%" alt="DHCP"/>
+<p><img src="https://i.imgur.com/WZ8hSFG.png" height="38%" width="38%" alt="DHCP"/>
 <img src="https://i.imgur.com/TS3bRSN.png" height="30%" width="30%" alt="scope"/>
 <img src="https://i.imgur.com/0NsMJu9.png" height="30%" width="30%" alt="default gateway/router"/></p>
 
