@@ -20,71 +20,29 @@ This tutorial outlines the implementation of Microsoft Active Directory within O
 
 
 <p>
-In this lab, we will create two virtual machines on VirtualBox. One will be the Domain Controller (DC), while the other will be a Client machine. The Client will connect to the internet through the DC's internal network and out the external connection. 
+In this lab, we will create two virtual machines on VirtualBox. One will be the Domain Controller (DC), while the other will be a Client machine. The Client will connect to the internet through the DC's internal network (172.16.0.1) and out the external network (10.0.2.15). 
 </p>
 
+<p>
+  <img src="https://i.imgur.com/gY8ouR6.png" height="80%" width="80%" alt="AD lab diagram"/>
+</p>
+
+<p>First, let's create the Windows Server 2019 Domain Controller. To start the set up, we will configure two adapters to simulate a corporate network environment.</p>
 
 <p>
-<img src="https://i.imgur.com/gY8ouR6.png" height="80%" width="80%" alt="AD lab diagram"/>
+  <img src="https://i.imgur.com/Y3khK6x.png" height="50%" width="50%" alt="Two network adapter configuration"/>
+  <img src="https://i.imgur.com/AeIUgCO.png" height="40%" width="40%" alt="Server 2019 installation"/>
 </p>
-<p>
-DC-1 has to have a static Private IP Address. Client one will connect to DC-1 to ensure connectivity we will try to ping DC-1 from Client-1. At first the ping will not work correctly. We have to enable ICMPv4 on the firewall on DC-1. Now we can ping DC-1 successfully from Client-1
-</p>
-<br />
 
-<p>
-<img src="https://i.imgur.com/HvZBWzc.png" height="60%" width="60%" alt="Disk Sanitization Steps"/>
-</p>
-<img src="https://i.imgur.com/1lrrGPw.png" height="60%" width="60%" alt="Disk Sanitization Steps"/>
-<p>
-Now we will log back into DC-1 to install AD Users & Computers. Promote the VM to DC, setup a new forest as "mydomain.com" afterwards restart then log back into DC-1 as user: "mydomain.com\labuser". If you performed the steps properly you should be able to run AD Users & Computers as shown below.
-</p>
-<img src="https://i.imgur.com/cGjvRke.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-</p>
-Excellent! We can start creating Organizational Units (OU). Let's first create an OU named _EMPLOYEES. Create another OU named _ADMINS. In order to do that right click on the domain area. Select new->Organizational Unit and fill out the field. Then click inside of your OU and right click, select new and select user and fill out the information for your new user. The user should be named Jane Doe, she is going to be an Admin so her username will be Jane_admin. Lastly add Jane to the domain admins security group. 
-</p>
-<img src="https://i.imgur.com/hL7g5Y5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-</p>
-<img src="https://i.imgur.com/kcgvzdE.png" height="50%" width="50%" alt="Disk Sanitization Steps"/>
-From now on you can use Jane_admin as the administrator account. Now we will join Client-1 to the domain (mydomain.com) from the azure portal we will change client-1's DNS settings to the DC's Private IP address. After you do that restart Client-1 from within the Azure portal. Our picture below shows verification that client-1 is on the DC-1 DNS. 
-</p>
-<img src="https://i.imgur.com/jbrGTXW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-</p>
-<img src="https://i.imgur.com/kvcm2cY.jpg" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-</p>
-<p>
-We have to join Client-1 to the domain in order to do so navigate to your system settings and go to about. Off to the right select rename this pc (advanced). From there select to change the domain. Enter "mydomain.com" after that enter your credentials from mydomain.com\labuser. Your computer will restart and then client-1 will be a part of mydomain.com
-</p>
-<br />
-<p>
-  <p>
-<img src="https://i.imgur.com/Ze0Em5e.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Wonderufl Client-1 is now a part of the domain. Now we will set up remote desktop for non-administrative users on Client-1. We have to log into Client-1 as an admin and open system properties. Click on "Remote Desktop", allow "domain users" access to remote desktop. After completing those steps you should be able to log into Client-1 as a normal user.
-</p>
-<br />
+<p>After installing Microsoft 2019, let's see what the ipconfig command outputs.</p>
+<img src="https://i.imgur.com/ASLOlOl.png" height="80%" width="80%" alt="External static adapter settings"/>
+<p>As you can see, there are two ethernet adapters. The bottom result being the <i>internal</i> network because of it assigned APIPA IP address: 169.254.185.206. In turn, this means the top result is the <i>external</i> IP address assigned by the home router DHCP: 10.0.2.15. Because we are configuring the domain controller, it is best to solidify the IP addresses to <i>static</i>. We can do so in the network and internet settings. We will first manually enter the <i>external</i> IPv4 details, copying and pasting the given IPv4 address, subnet mask, and default gateway as seen above. In the DNS server section, we will input a loopback address because the domain controller will serve as the DNS server.</p>
 
-<p>
-  <p>
-<img src="https://i.imgur.com/SApOKiE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lastly to verify that noraml users can RDP into Client-1 we will use a script to generate thousands of users into the domain. We will input the script in powershell, after the users are created we will select one and RDP into Client-1.
-</p>
-<br />
-<img src="https://i.imgur.com/EzWG8ug.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<p>
-<p>
-  <p>
-<img src="https://i.imgur.com/Gkpe68K.png" height="60%" width="60%" alt="Disk Sanitization Steps"/>
-</p>
-<img src="https://i.imgur.com/n3gMwQV.png" height="60%" width="60%" alt="Disk Sanitization Steps"/>
-<p>
-As you can see the Powershell script created a user with the username "bab.hubo" We were able to login to Client-1 with his credentials as a normal user. 
-</p>
+<p>Next, we will manually configure the <i>internal</i> network properties. We will go ahead and change the assigned APIPA address to a private class B IP address: 172.16.0.1. Additionally, we will reduce the size of the subnet mask from 255.255.0.0 to 255.255.255.0. This will provide the <i>internal</i> home lab network with 255 addresses. Similarily to the setup of the <i>external</i> adapter, we will supply a loopback address for the DNS server.</p>
+<img src="https://i.imgur.com/3IWMFpP.png" height="80%" width="80%" alt="Internal static adapter settings"/>
+
+<p></p>
+
+
+
+
