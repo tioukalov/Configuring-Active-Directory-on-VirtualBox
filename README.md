@@ -55,7 +55,15 @@ In this lab, we will create two virtual machines on VirtualBox. One will be the 
 <img src="https://i.imgur.com/TS3bRSN.png" height="30%" width="30%" alt="scope"/>
 <img src="https://i.imgur.com/0NsMJu9.png" height="30%" width="30%" alt="default gateway/router"/></p>
 
-<p></p>
+<p>Now that we have the DC set up. Let's configure a client machine and connect to the homelab.com domain. Below, you can see screenshots of the Client1 machine being set up in an internal adapter.</p>
+<p><img src="https://i.imgur.com/ILT9fVe.png" height="48%" width="48%" alt="Client1 internal adapter"/>
+<img src="https://i.imgur.com/EOqecv7.png" height="48%" width="48%" alt="Win10 pro setup"/></p>
+
+<img src="https://i.imgur.com/9RQmvZ7.png" height="70%" width="70%" alt="Client1 ipconfig"/>
+<p>Now, after searching Client1's ipconfig information, we can observe the machine recognized homelab.com as the DNS. Also, we see the DC's DCHP role has automatically leased an IP address. Furthermore, the default gateway/router has been set to the domain controller's internal IP address. We can confirm this by nagivating to the DC's server manager's "DHCP" and "Users and Computers" tools.</p>
+<p><img src="https://i.imgur.com/63lbpxp.png" height="60%" width="60%" alt="DHCP DC"/>
+<img src="https://i.imgur.com/Su8kVYc.png" height="38%" width="38%" alt="Users and computers DC"/></p>
+
 
 
 
