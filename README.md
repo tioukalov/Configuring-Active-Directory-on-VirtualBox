@@ -64,7 +64,25 @@ In this lab, we will create two virtual machines on VirtualBox. One will be the 
 <p><img src="https://i.imgur.com/63lbpxp.png" height="60%" width="60%" alt="DHCP DC"/>
 <img src="https://i.imgur.com/Su8kVYc.png" height="38%" width="38%" alt="Users and computers DC"/></p>
 
+<p>Now, in order to simulate a corporate environment, let's create a handful of users. Rather than creating the domain users manually, we will utilize the automation of powershell. To do so, I drafted a list of users in a text (.txt) file. Next, I created a script in powershell ISE to create the domain users for me.</p>
+<p><img src="https://i.imgur.com/lgxHvJs.png" height="29%" width="29%" alt="text file of users"/>
+<img src="https://i.imgur.com/Z1McXIi.png" height="40%" width="40%" alt="powershell ise"/>
+<img src="https://i.imgur.com/mU86sY2.png" height="29%" width="29%" alt="AD users"/></p>
 
+<p>Now that we have created a few users in the domain. Let's rename the machine to Client1 and join the domain using one of the automated user creations.</p>
+<p><img src="https://i.imgur.com/9fKta3W.png" height="49%" width="49%" alt="joining domain"/>
+<img src="https://i.imgur.com/1PeD4va.png" height="48%" width="48%" alt="ctioukalov credentials"/></p>
+                                                                                                                                              
+<p>As you can see with the screenshot below, we can run the whoami command in the command prompt and observe the joined domain: homelab.com.</p>
+<img src="https://i.imgur.com/Sv2SBxI.png" height="70%" width="70%" alt="whoami"/>   
 
+<p>Now on to the last section of this lab, Windows Remote Desktop. After enabling remote desktop in the Microsoft settings, let's see if we can remotely connect to Client1's machine from the Domain Controller using Administrator credentials.</p>
+<p><img src="https://i.imgur.com/YcYz6L3.png" height="49%" width="49%" alt="connecting to remote desktop"/>
+<img src="https://i.imgur.com/6FSdCnD.png" height="48%" width="48%" alt="remote desktop successful"/></p><br><br>
+
+<p>Thank you for your time! I refered to Josh Madakor's Active Directory Home Lab YouTube <a href="https://www.youtube.com/watch?v=MHsI8hJmggI&t=1050s">video</a> for this lab.</p>
+                                                                                              
+                                                                                               
+                                                                                               
 
 
